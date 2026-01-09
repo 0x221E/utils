@@ -33,17 +33,19 @@ void arena_init(Arena* a, size_t len)
 void* arena_alloc(Arena* a, size_t len)
 {
   if(a->start == NULL || a->last == NULL) arena_init(a, DEFAULT_ARENA_MEM_LEN);
- 
- void* res = NULL;
 
-  if(a->len + len > a->cap)
+  size_t len_aligned = (len + 7) & ~7; // align to 8 bytes
+  
+  void* res = NULL;
+
+  if(a->len + len_aligned > a->cap)
   {   
     return res;
   }
   
   res = a->last;
-  a->last = (char*)a->last + len;
-  a->len += len;
+  a->last = (char*)a->last + len_aligned;
+  a->len += len_aligned;
 
   return res;
 }
