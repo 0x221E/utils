@@ -7,7 +7,8 @@ extern "C" {
   
 #include <stddef.h>
 #include <stdlib.h>
-
+#include <stdbool.h>
+  
 // TODO: Add feature to support amortized O(1) dealloc, and reuse.
 
 #define DEFAULT_ARENA_MEM_LEN 1024*20
